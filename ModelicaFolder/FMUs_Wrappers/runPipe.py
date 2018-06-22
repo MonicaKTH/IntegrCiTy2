@@ -18,27 +18,23 @@ def run_demo(with_plots=True, version="2.0"):
 
 	print("FMU loaded", pipe)
 
-	res = pipe.simulate(final_time=10)
-
-	x1 = res['sou.T_in']
-#x2 = res['x2']
+	res = pipe.simulate(final_time=100)
+		
+	x1 = res['Tin.offset']
+	x2 = res['sou.m_flow']
 	t = res['time']
-	
-	print(x1)
-	
+		
 	plt.figure(1)
-	plt.plot(t, x1)
+	plt.plot(t, x1, t, x2)
+	plt.legend(('Tin (K)','mdot (kg/s)'))
+	plt.title('Pipe')
+	plt.ylabel('y axis')
+	plt.xlabel('Time (s)')
 	plt.show()
 	
+	#import scipy.io as sio
+	#test = sio.loadmat('test.mat')
 	
-	
-#plt.plot(t, x1, t, x2)
-#plt.legend(('x1','x2'))
-#plt.title('Van der Pol oscillator.')
-#plt.ylabel('Angle (rad)')
-#plt.xlabel('Time (s)')
-
-
 
 if __name__ == "__main__":
     run_demo()
